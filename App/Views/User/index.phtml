@@ -1,0 +1,26 @@
+<?php if (!$this->user): ?>
+    <form action="/auth" method="post">
+        <?php
+        if ($this->errors) {
+            foreach ($this->errors as $error) {
+                echo '<p>' . $error . '</p>';
+            }
+        }
+        ?>
+        <input type="hidden" name="auth" value="1">
+        <div>
+            Логин (email): <input type="email" name="login" placeholder="Логин" value="<?= $this->login; ?>" required>
+        </div>
+        <div>
+            Пароль: <input type="password" name="password" placeholder="Пароль" required>
+        </div>
+        <div>
+            <button type="submit">Войти</button>
+            <br><br>
+            Нет аккаунта? <a href="/register">Зарегистрируйтесь</a>
+        </div>
+    </form>
+<?php else: ?>
+    <h1>Вы успешно авторизованы!</h1>
+    <a href="/logout">Выйти</a>
+<?php endif; ?>

@@ -1,0 +1,39 @@
+<form action="/register" method="post" enctype="multipart/form-data">
+    <?php
+    if ($this->errors) {
+        foreach ($this->errors as $error) {
+            echo '<p>' . $error . '</p>';
+        }
+    }
+    ?>
+    <input type="hidden" name="register" value="1">
+    <div>
+        Логин (email): <input type="email" name="login" placeholder="Логин"
+                              value="<?= $this->fields[0]['login'] ?? ''; ?>" required>
+    </div>
+    <div>
+        Имя: <input type="text" name="name" placeholder="Имя" value="<?= $this->fields[0]['name'] ?? ''; ?>" required>
+    </div>
+    <div>
+        Возраст: <input type="number" name="age" placeholder="Возраст" value="<?= $this->fields[0]['age'] ?? ''; ?>"
+                        required>
+    </div>
+    <div>
+        Описание: <input type="text" name="description" placeholder="Описание"
+                         value="<?= $this->fields[0]['description'] ?? ''; ?>" required>
+    </div>
+    <div>
+        Аватарка: <input type="file" name="photo" accept=".png, .jpg, .jpeg" required>
+    </div>
+    <div>
+        Пароль: <input type="password" name="password" placeholder="Пароль" required>
+    </div>
+    <div>
+        Повторить пароль: <input type="password" name="password_confirm" placeholder="Пароль" required>
+    </div>
+    <div>
+        <button type="submit">Зарегистрироваться</button>
+        <br><br>
+        Зарегистрированы? <a href="/auth">Авторизируйтесь</a>
+    </div>
+</form>

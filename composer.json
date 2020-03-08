@@ -1,0 +1,27 @@
+{
+  "name": "nokobo/loft-project-02",
+  "description": "Own implementation of MVC.",
+  "keywords": [
+    "MVC"
+  ],
+  "type": "project",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kurmanbek Nurmatov",
+      "email": "nokobo.prog@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "App\\": "App/",
+      "Base\\": "Base/"
+    }
+  },
+  "require": {
+    "illuminate/database": "^7.0",
+    "fzaninotto/faker": "^1.9",
+    "intervention/image": "^2.5",
+    "wixel/gump": "^1.8"
+  }
+}

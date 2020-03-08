@@ -1,0 +1,19 @@
+<h2>Раздел для авторизированных пользователей</h2>
+<table style="border: 1px solid #000">
+    <tr>
+        <th style="border: 1px solid #000">Пользователь (логин)</th>
+        <th style="border: 1px solid #000">Имя</th>
+        <th style="border: 1px solid #000">Возраст</th>
+        <th style="border: 1px solid #000">Описание</th>
+        <th style="border: 1px solid #000">Аватарка</th>
+    </tr>
+    <?php foreach ($this->users as $user): ?>
+        <tr>
+            <td style="border: 1px solid #000"><?= $user['email']; ?></td>
+            <td style="border: 1px solid #000"><?= $user['name']; ?></td>
+            <td style="border: 1px solid #000"><?= $user['age']; ?> (<?= $user['adult_status']; ?>)</td>
+            <td style="border: 1px solid #000"><?= $user['description']; ?></td>
+            <td style="border: 1px solid #000"><img src="<?= $user['images'][0]['name']; ?>"></td>
+        </tr>
+    <?php endforeach; ?>
+</table>

@@ -1,0 +1,15 @@
+<h2>Раздел для авторизированных пользователей</h2>
+<table style="border: 1px solid #000">
+    <tr>
+        <th style='border: 1px solid #000'>Название файла</th>
+        <th style='border: 1px solid #000'>Фотография</th>
+    </tr>
+    <?php foreach ($this->files as $file): ?>
+        <tr>
+            <td style='border: 1px solid #000'><?= $file['name']; ?></td>
+            <td style='border: 1px solid #000'>
+                <img src="<?= $file['name']; ?>">
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
