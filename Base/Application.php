@@ -44,14 +44,14 @@ class Application
 
             $controllerFileName = 'App\Controllers\\' . $dispatcher->getControllerName();
             if (!class_exists($controllerFileName)) {
-                throw new Error404('Class ' . $controllerFileName . ' not exists');
+                throw new Error404('Введённой Вами страницы не существует!');
             }
 
             $controllerObject = new $controllerFileName();
 
             $actionName = $dispatcher->getActionName();
             if (!method_exists($controllerObject, $actionName)) {
-                throw new Error404('Method ' . $actionName . ' not found in ' . $controllerFileName);
+                throw new Error404('Введённой Вами страницы не существует!');
             }
 
             $templatePath = '../App/Views/' . $dispatcher->getControllerName() . '/' .
@@ -65,9 +65,8 @@ class Application
                 echo $view->render($templatePath);
             }
         } catch (Error404 $e) {
-            header('HTTP/1.0 404 Not Found');
             echo '<h1>Ошибка 404:</h1>';
-            trigger_error($e->getMessage());
+            echo $e->getMessage();
         }
     }
 }

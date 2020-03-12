@@ -6,6 +6,7 @@
         <th style="border: 1px solid #000">Возраст</th>
         <th style="border: 1px solid #000">Описание</th>
         <th style="border: 1px solid #000">Аватарка</th>
+        <th style="border: 1px solid #000">Действия</th>
     </tr>
     <?php foreach ($this->users as $user): ?>
         <tr>
@@ -14,6 +15,12 @@
             <td style="border: 1px solid #000"><?= $user['age']; ?> (<?= $user['adult_status']; ?>)</td>
             <td style="border: 1px solid #000"><?= $user['description']; ?></td>
             <td style="border: 1px solid #000"><img src="<?= $user['images'][0]['name']; ?>"></td>
+
+            <td style="border: 1px solid #000">
+                <br>
+                <a href="/user/create">Создать пользователя</a><br><br>
+                <a href="/user/update/?user_id=<?= $user['id']; ?>">Редактировать пользователя</a><br><br>
+            </td>
         </tr>
     <?php endforeach; ?>
 </table>

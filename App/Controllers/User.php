@@ -97,6 +97,67 @@ class User extends Controller
         }
     }
 
+    public function createAction()
+    {
+        $userId = Session::instance()->getUserId();
+        if (!$userId) {
+            header('Location: /auth');
+            die();
+        }
+
+        if ($this->addAction()) {
+            header('Location: /users');
+            die();
+        }
+    }
+
+    public function updateAction()
+    {
+        $userId = Session::instance()->getUserId();
+        if (!$userId) {
+            header('Location: /auth');
+            die();
+        }
+
+        $request = Context::instance()->getRequest();
+        $params = $request->getRequestParams();
+        $user = UserModel::with('images')->find((int)$params['user_id']);
+        if (isset($user)) {
+            if (isset($params['update']) && $params['update'] == 1) {
+                $validated = $this->validate($params);
+                if ($validated !== true) {
+                    $this->view->errors = $validated;
+                } else {
+                    if (isset($user)) {
+                        $user->email = $params['login'];
+                        $user->name = $params['name'];
+                        $user->age = $params['age'];
+                        $user->description = $params['description'];
+                        $user->password = sha1($params['password']);
+                        if ($user->save()) {
+                            $userId = $user->id;
+
+                            $file = new File();
+                            $fileName = $file->saveUserPhotoFile($_FILES['photo']);
+                            $file->saveUserPhotoToDb($fileName, $userId);
+
+                            header('Location: /users');
+                            die();
+                        }
+                    } else {
+                        $this->view->errors = 'Пользователя не существует';
+                    }
+                }
+            }
+            $this->view->user = $user;
+
+            return true;
+        }
+
+        header('Location: /users');
+        die();
+    }
+
     protected function validate($params)
     {
         return GUMP::is_valid(array_merge($params, $_FILES), array(

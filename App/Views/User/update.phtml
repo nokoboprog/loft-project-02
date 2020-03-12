@@ -1,0 +1,49 @@
+<?php
+if ($this->user) {
+    $user = $this->user->toArray();
+    $images = $user['images'];
+    if (!empty($images)) {
+        $image = reset($images);
+    }
+}
+?>
+<form method="post" enctype="multipart/form-data">
+    <?php
+    if ($this->errors) {
+        foreach ($this->errors as $error) {
+            echo '<p>' . $error . '</p>';
+        }
+    }
+    ?>
+    <input type="hidden" name="update" value="1">
+    <input type="hidden" name="user_id" value="<?= $user['id']; ?>">
+    <div>
+        Логин (email): <input type="email" name="login" placeholder="Логин" value="<?= $user['email']; ?>" required>
+    </div>
+    <div>
+        Имя: <input type="text" name="name" placeholder="Имя" value="<?= $user['name']; ?>" required>
+    </div>
+    <div>
+        Возраст: <input type="number" name="age" placeholder="Возраст" value="<?= $user['age']; ?>" required>
+    </div>
+    <div>
+        Описание: <input type="text" name="description" placeholder="Описание" value="<?= $user['description']; ?>"
+                         required>
+    </div>
+    <div>
+        Аватарка: <input type="file" name="photo" accept=".png, .jpg, .jpeg" required>
+        <? if (isset($image)): ?>
+            <img src="<?= $image['name']; ?>">
+        <? endif; ?>
+    </div>
+    <div>
+        Пароль: <input type="password" name="password" placeholder="Пароль" required>
+        Пароль не менее 6-ти символов.
+    </div>
+    <div>
+        Пароль (повтор): <input type="password" name="password_confirm" placeholder="Пароль" required>
+    </div>
+    <div>
+        <button type="submit">Обновить данные пользователя</button>
+    </div>
+</form>

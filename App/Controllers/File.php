@@ -38,6 +38,8 @@ class File extends Controller
 
     public function saveUserPhotoToDb($photoName, $userId)
     {
+        $this->deleteUserPhoto($userId);
+
         $file = new FileModel();
         $file->name = $photoName;
         $file->user_id = $userId;
@@ -47,5 +49,22 @@ class File extends Controller
         }
 
         return true;
+    }
+
+    public function deleteUserPhoto($userId)
+    {
+        $oldFile = FileModel::where('user_id', '=', $userId)->first();
+        if ($oldFile) {
+            $this->deleteFileDisk($oldFile->name);
+            FileModel::destroy($oldFile->getKey('id'));
+        }
+    }
+
+    public function deleteFileDisk($fileName)
+    {
+        $filePath = $_SERVER['DOCUMENT_ROOT'] . $fileName;
+        if (file_exists($filePath)) {
+            unlink($filePath);
+        }
     }
 }
